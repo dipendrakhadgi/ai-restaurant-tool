@@ -34,6 +34,35 @@ h1 {
 .modes button:hover {
   background: #475569;
 }
+.mode-btn {
+  margin: 5px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  background: #334155;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+/* Hover effect */
+.mode-btn:hover {
+  background: #475569;
+}
+
+/* ACTIVE BUTTON */
+.mode-btn.active {
+  background: #22c55e;
+  color: black;
+  font-weight: bold;
+}
+
+.loading {
+  margin-top: 15px;
+  color: #94a3b8;
+  display: none;
+  font-style: italic;
+}
 
 textarea {
   width: 100%;

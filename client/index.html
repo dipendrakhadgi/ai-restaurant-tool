@@ -11,15 +11,15 @@
   <h1>🍔 AI Restaurant Assistant</h1>
   <p class="subtitle">Internal AI tool for restaurant teams</p>
 
-  <div class="modes">
-    <button onclick="setMode('menu')">Menu</button>
-    <button onclick="setMode('customer')">Customer</button>
-    <button onclick="setMode('upsell')">Upsell</button>
-  </div>
-
+<div class="modes">
+  <button class="mode-btn active" onclick="setMode('menu', this)">Menu</button>
+  <button class="mode-btn" onclick="setMode('customer', this)">Customer</button>
+  <button class="mode-btn" onclick="setMode('upsell', this)">Upsell</button>
+</div>
   <textarea id="input" placeholder="Type something like: 'Create a burger description'"></textarea>
 
   <button class="generate" onclick="send()">Generate</button>
+  <div id="loading" class="loading">Thinking...</div>
 
   <div id="output"></div>
 </div>
