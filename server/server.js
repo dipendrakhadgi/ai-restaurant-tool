@@ -1,7 +1,8 @@
+// server/server.js
 import express from "express";
-import OpenAI from "openai";
 import cors from "cors";
 import dotenv from "dotenv";
+import OpenAI from "openai";
 
 dotenv.config();
 
@@ -9,50 +10,37 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const client = new OpenAI({
-  baseURL: "https://openrouter.ai/api/v1",
-  apiKey: process.env.OPENAI_API_KEY
+// Create OpenAI client
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
-app.get("/", (req, res) => {
-  res.send("Server is working ✅");
-});
-
+// API endpoint
 app.post("/api", async (req, res) => {
+  const { input, mode } = req.body;
+
   try {
-    const { input, mode } = req.body;
+    const promptMap = {
+      menu: `Write a creative menu description for: ${input}`,
+      customer: `Write a polite customer response for: ${input}`,
+      upsell: `Suggest upsell items for: ${input}`,
+    };
 
-let systemPrompt = "You help restaurants.";
-
-if (mode === "menu") {
-  systemPrompt = "Create high-quality menu descriptions.";
-} else if (mode === "customer") {
-  systemPrompt = "Reply politely to customer complaints.";
-} else if (mode === "upsell") {
-  systemPrompt = "Suggest upsells for restaurant orders.";
-}
-
-    const response = await client.chat.completions.create({
-      model: "openai/gpt-3.5-turbo",
+    const response = await openai.chat.completions.create({
+      model: "gpt-4",
       messages: [
-  { role: "system", content: systemPrompt },
-  { role: "user", content: input }
-]
+        { role: "system", content: "You are an AI assistant for restaurants." },
+        { role: "user", content: promptMap[mode] || input },
+      ],
     });
 
     res.json({ reply: response.choices[0].message.content });
-
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: "Error happened" });
+    res.status(500).json({ reply: "Error generating response" });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+// Use dynamic port for Render
 const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
