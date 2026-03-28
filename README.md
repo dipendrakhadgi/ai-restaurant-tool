@@ -1,23 +1,13 @@
 # AI Restaurant Assistant 🍔
 
-A modern AI-powered internal tool for restaurant teams.
+This is an AI-powered tool for restaurant teams.
 
 ## Features
-- Generate menu descriptions
-- Reply to customers
-- Suggest upsells
+- Menu generation
+- Customer replies
+- Upselling suggestions
 
-## Tech Stack
+## Tech
 - Node.js
 - OpenAI API
 - HTML/CSS/JS
-
-## Run
-
-npm install  
-npm start  
-
-Open client/index.html
-
-## Purpose
-Built as a practical AI tool for real business use cases.
