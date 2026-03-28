@@ -19,7 +19,7 @@ async function send() {
   loading.style.display = "block";
 
   try {
-    const res = await fetch("http://localhost:3000/api", {
+    const res = await fetch("/api", { // relative path works now
       method: "POST",
       headers: {
         "Content-Type": "application/json"
